@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>11C.01.03 - The Theme-inator</title>
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative:700&display=swap" rel="stylesheet">
+  </head>
+  <body data-house="">
+  
+    <main>
+      <header class="hero">
+        <span class="title-header">
+          <h1>Studentlist</h1>
+          <h2>11C.01.03 - The Theme-inator</h2>
+        </span>
+      </header>
+
+      <section class="top">
+        <label id="" for="theme">Change Theme:</label>
+        <select name="theme" id="theme">
+          <option value="-" value="Default" selected>Default</option>
+          <option value="Gryffindor">Gryffindor theme</option>
+          <option value="Hufflepuff">Hufflepuff theme</option>
+          <option value="Ravenclaw">Ravenclaw theme</option>
+          <option value="Slytherin">Slytherin theme</option>
+        </select>
+      </label>
+      </section>
+      <section class="grid-container">
+        <div class="auto-grid"></div>
+      </section>
+      <div id="detalje">
+        <article class="popup-content">
+          <span><button id="close" class="close-btn">X</button></span>
+          <img class="logo" src="" alt="" />
+          <p class="name">Full Name</p>
+          <p class="house">House</p>
+        </article>
+      </div>
+    </main>
+  </body>
+
+  <template class="temp">
+    <article class="student-card">
+      <img class="logo" src="" alt="" />
+      <div class="card-info">
+        <p class="name">Full Name</p>
+        <p class="house">House</p>
+      </div>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+</html>
