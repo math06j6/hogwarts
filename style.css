@@ -155,9 +155,9 @@ option {
 /****** Select Theme - End ******/
 
 
-/***** Table ******/
+/***** Students ******/
 
-table {
+.students {
   font-size: 1rem;
   border-spacing: 0;
   width: 100%;
@@ -222,9 +222,9 @@ th {
   cursor: pointer;
 } */
 
-/* __________________ Modal - tidligere ___________________*/
+/* __________________ Modal - ___________________*/
 
-/* .personsdata {
+.personsdata {
   list-style: none;
   margin-left: 0;
   padding-left: 0;
@@ -240,7 +240,43 @@ th {
   font-family: "Cinzel Decorative", cursive;
   font-weight: 700;
   color: var(--baseColor);
-} */
+} 
+
+#detalje {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--backgroundColor);
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  height: 100%;
+  width: 100%;
+}
+
+#detalje .close-btn {
+  font-size: 2rem;
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  position: fixed;
+  min-width: initial;
+  top: 1rem;
+  right: 5vw;
+  color: inherit;
+  cursor: pointer;
+}
+
+.popup-content {
+  width: 100vw;
+  position: relative;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 
 

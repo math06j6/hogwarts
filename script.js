@@ -1,14 +1,15 @@
 "use strict";
 
-// const dataUrl = "https://petlatkea.dk/2020/hogwarts/students.json";
+const dataUrl = "https://petlatkea.dk/2020/hogwarts/students.json";
 
 window.addEventListener("DOMContentLoaded", start);
-
-const allAnimals = [];
+let studentsJSON = [];
+let response = [];
+let allAnimals = [];
 
 function start() {
   console.log("ready");
-  skjulDetalje();
+  hideStudent();
   loadJSON();
   document.querySelector("select#theme").addEventListener("change", selectTheme);
 }
@@ -17,14 +18,7 @@ function selectTheme() {
   document.querySelector("body").setAttribute("data-house", this.value);
 }
 
-async function loadJSON() {
-  fetch("animals.json")
-    .then(response => response.json())
-    .then(jsonData => {
-      // when loaded, prepare objects
-      prepareObjects(jsonData);
-    });
-}
+
 
 const Animal = {
   first: "",
@@ -34,17 +28,21 @@ const Animal = {
   house: "",
 };
 
-function loadJSON() {
-  fetch("https://petlatkea.dk/2020/hogwarts/students.json")
-    .then(response => response.json())
-    .then(jsonData => {
-      // when loaded, prepare objects
-      prepareObjects(jsonData);
-    });
+async function loadJSON() {
+  console.log("getJson");
+
+  //let response = await fetch(dataUrl);
+  // students = await response.json();
+
+  const jsonData = await fetch("https://petlatkea.dk/2020/hogwarts/students.json");
+  
+  response = await jsonData.json();
+  prepareObjects(response);
 }
 
+
 function prepareObjects(jsonData) {
-  jsonData.forEach(jsonObject => {
+  response.forEach(jsonObject => {
     // TODO: Create new object with cleaned data - and store that in the allAnimals array
 
     let animal = Object.create(Animal);
@@ -67,34 +65,82 @@ function prepareObjects(jsonData) {
   });
 
   console.log("allAnimals", allAnimals);
-  displayList();
+
+
+  // displayList();
+  showStudents();
 }
 
-function displayList() {
-  // clear the list
+// function displayList() {
+//   // clear the list
+//   document.querySelector("#list tbody").innerHTML = "";
+
+//   // build a new list
+//   allAnimals.forEach(displayStudent);
+// }
+
+function showStudents() {
+  console.log("showStudents");
+  let studentTemplate = document.querySelector(".temp");
+  let hogwartsStudents = document.querySelector(".students");
+
   document.querySelector("#list tbody").innerHTML = "";
+  // hogwartsStudents.innerHTML = "";
 
-  // build a new list
-  allAnimals.forEach(displayAnimal);
+  allAnimals.forEach(house => {
+      // const clone = studentTemplate.cloneNode(true).content;
+      const clone = document.querySelector("#animal").content.cloneNode(true);
+      clone.querySelector(".house").textContent = house.house;
+      clone.querySelector(".first_name").textContent = house.first_name;
+      clone.querySelector(".logo").src = "files/" + house.house + ".png";
+      clone.querySelector(".logo").alt = house.house + " logo";
+
+      // clone.querySelector(".student-card").addEventListener("click", () => {
+      //   displayStudent();
+      // });
+      document.querySelector(".logo").src = "files/" + house.house + ".png";
+      document.querySelector(".logo").alt = house.house + " logo";
+
+      hogwartsStudents.appendChild(clone);
+      console.log("cloned");
+  });
 }
 
-function displayAnimal(animal) {
-  // create clone
-  const clone = document.querySelector("template#animal").content.cloneNode(true);
+function displayStudent() {
+  console.log(displayStudent);
 
-  // set clone data
-  clone.querySelector("[data-field=first]").textContent = animal.first;
-  clone.querySelector("[data-field=middle]").textContent = animal.middle;
-  clone.querySelector("[data-field=last]").textContent = animal.last;
-  clone.querySelector("[data-field=gender]").textContent = animal.gender;
-  clone.querySelector("[data-field=house]").textContent = animal.house;
+  const popup = document.querySelector(".popup-content");
 
-  // append clone to list
-  document.querySelector("#list tbody").appendChild(clone);
+  document.querySelector("#detalje").style.display = "flex";
+
+  // Hvis man klikker et vilkårligt sted på knappen .close-btn, så lukker man fuldskærmsvisning \\
+  document.querySelector("#detalje .close-btn").addEventListener("click", hideStudent);
+
+  // Hvis man klikker et vilkårligt sted på mit pop-up card, så lukker man fuldskærmsvisning \\
+  document.querySelector("#detalje").addEventListener("click", hideStudent);
 }
 
+// function displayStudent(animal) {
+//   console.log(displayStudent);
+//   // create clone
+//   const clone = document.querySelector("#animal").content.cloneNode(true);
 
+//   // set clone data
+//   clone.querySelector("[data-field=first]").textContent = animal.first;
+//   clone.querySelector("[data-field=middle]").textContent = animal.middle;
+//   clone.querySelector("[data-field=last]").textContent = animal.last;
+//   clone.querySelector("[data-field=last]").textContent = animal.nickname;
+//   clone.querySelector("[data-field=gender]").textContent = animal.gender;
+//   clone.querySelector("[data-field=house]").textContent = animal.house;
 
-function skjulDetalje() {
+//   // append clone to list
+//   document.querySelector("#list tbody").appendChild(clone);
+// }
+
+function hideStudent() {
   document.querySelector("#detalje").style.display = "none";
 }
+
+
+
+
