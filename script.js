@@ -77,11 +77,19 @@ function displayStudent(student) {
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
   // TODO: Show inquisitor ⭐ or ☆
-  let animalinquisitor = clone.querySelector("[data-field=inquisitor]");
+  let studentInquisitor = clone.querySelector("[data-field=inquisitor]");
   if (student.inquisitor) {
-    animalinquisitor.textContent = "⭐";
+    studentInquisitor.textContent = "⭐";
   } else {
-    animalinquisitor.textContent = "☆";
+    studentInquisitor.textContent = "☆";
+  }
+
+  // TODO: Display expel studet ⭐ or ☆
+  let expelOption = clone.querySelector("[data-field=expel]");
+  if (student.expel) {
+    expelOption.textContent = "✘";
+  } else {
+    expelOption.textContent = "✘";
   }
 
   // set clone data
@@ -101,7 +109,12 @@ function displayStudent(student) {
   document.querySelector(".logo").alt = student.house + " logo";
 
   clone.querySelector("[data-field=inquisitor]").addEventListener("click", function() {
-    setinquisitor(student);
+    setInquisitor(student);
+    displayList(allStudents);
+  });
+
+  clone.querySelector("[data-field=expel]").addEventListener("click", function() {
+    expelStudent(student);
     displayList(allStudents);
   });
 
@@ -109,11 +122,19 @@ function displayStudent(student) {
   document.querySelector("#information tbody").appendChild(clone);
 }
 
-function setinquisitor(student) {
+function setInquisitor(student) {
   if (student.inquisitor) {
     student.inquisitor = false;
   } else {
     student.inquisitor = true;
+  }
+}
+
+function expelStudent(student) {
+  if (student.expel) {
+    student.expel = false;
+  } else {
+    student.expel = true;
   }
 }
 

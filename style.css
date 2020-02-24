@@ -201,8 +201,13 @@ th {
   background-color: var(--colorTwo);
 }
 
+.expel,
 .inquisitor {
   text-align: center;
+}
+
+.expel {
+  color: red;
 }
 
 /*------------------- Pop-Up -------------------*/
