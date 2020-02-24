@@ -1,146 +1,139 @@
 "use strict";
 
-const dataUrl = "https://petlatkea.dk/2020/hogwarts/students.json";
+// const dataUrl = "https://petlatkea.dk/2020/hogwarts/students.json";
 
-window.addEventListener("DOMContentLoaded", start);
-let studentsJSON = [];
-let response = [];
-let allAnimals = [];
+window.addEventListener("DOMContentLoaded", inquisitort);
 
-function start() {
+const allStudents = [];
+
+function inquisitort() {
   console.log("ready");
-  hideStudent();
-  loadJSON();
   document.querySelector("select#theme").addEventListener("change", selectTheme);
+  skjulDetalje();
+  loadJSON();
 }
 
 function selectTheme() {
   document.querySelector("body").setAttribute("data-house", this.value);
 }
 
-
-
-const Animal = {
+const Student = {
   first: "",
   middle: "",
   last: "",
   gender: "",
   house: "",
+  inquisitor: false
 };
 
 async function loadJSON() {
-  console.log("getJson");
+  const response = await fetch("https://petlatkea.dk/2020/hogwarts/students.json");
+  // const response = await fetch("https://petlatkea.dk/2020/hogwarts/families.json");
+  const jsonData = await response.json();
 
-  //let response = await fetch(dataUrl);
-  // students = await response.json();
-
-  const jsonData = await fetch("https://petlatkea.dk/2020/hogwarts/students.json");
-  
-  response = await jsonData.json();
-  prepareObjects(response);
+  // when loaded, prepare data objects
+  prepareObjects(jsonData);
 }
-
 
 function prepareObjects(jsonData) {
-  response.forEach(jsonObject => {
-    // TODO: Create new object with cleaned data - and store that in the allAnimals array
+  jsonData.forEach(jsonObject => {
+    const student = Object.create(Student);
 
-    let animal = Object.create(Animal);
+    let fullName = jsonObject.fullname;
+    fullName = fullName.toLowerCase();
+    fullName = fullName.trim();
 
-    const personalData = jsonObject.fullname.trim();
-    console.log(personalData);
+    student.first = jsonObject.fullname.substring(0, jsonObject.fullname.indexOf(" "));
+    student.middle = jsonObject.fullname.substring(jsonObject.fullname.indexOf(" ") + 5, jsonObject.fullname.lastIndexOf(" "));
+    student.last = jsonObject.fullname.substring(jsonObject.fullname.lastIndexOf(" "));
+    student.gender = jsonObject.gender;
+    student.house = jsonObject.house;
 
-    // animal.firstName = fullName.substring(1, fullName.indexOf(" "));
-    
-    animal.first = jsonObject.fullname.substring(0, jsonObject.fullname.indexOf(" "));
-    animal.middle = jsonObject.fullname.substring(jsonObject.fullname.indexOf(" ") + 5,jsonObject.fullname.lastIndexOf(" "));
-    animal.last = jsonObject.fullname.substring(jsonObject.fullname.lastIndexOf(" "));
-    animal.gender = jsonObject.gender;
-    animal.house = jsonObject.house;
-   
-    allAnimals.push(animal);
-    console.log(animal);
+    // Prepare the house data
+    student.house = student.house.trim();
+    student.house = student.house.toLowerCase();
+    let capitalizeHouse = student.house.substring(0, 1);
+    capitalizeHouse = capitalizeHouse.toUpperCase();
+    student.house = capitalizeHouse + student.house.substring(1);
 
-    // TODO: MISSING CODE HERE !!!
+    allStudents.push(student);
+    console.log(student);
   });
 
-  console.log("allAnimals", allAnimals);
-
-
-  // displayList();
-  showStudents();
+  console.log("allStudents", allStudents);
+  displayList();
 }
 
-// function displayList() {
-//   // clear the list
-//   document.querySelector("#list tbody").innerHTML = "";
+function displayList() {
+  // clear the list
+  document.querySelector("#information tbody").innerHTML = "";
 
-//   // build a new list
-//   allAnimals.forEach(displayStudent);
-// }
+  // build a new list
+  allStudents.forEach(displayStudent);
+}
 
-function showStudents() {
-  console.log("showStudents");
-  let studentTemplate = document.querySelector(".temp");
-  let hogwartsStudents = document.querySelector(".students");
+function displayStudent(student) {
+  // create clone
+  const clone = document.querySelector("template#student").content.cloneNode(true);
 
-  document.querySelector("#list tbody").innerHTML = "";
-  // hogwartsStudents.innerHTML = "";
+  // TODO: Show inquisitor ⭐ or ☆
+  let animalinquisitor = clone.querySelector("[data-field=inquisitor]");
+  if (student.inquisitor) {
+    animalinquisitor.textContent = "⭐";
+  } else {
+    animalinquisitor.textContent = "☆";
+  }
 
-  allAnimals.forEach(house => {
-      // const clone = studentTemplate.cloneNode(true).content;
-      const clone = document.querySelector("#animal").content.cloneNode(true);
-      clone.querySelector(".house").textContent = house.house;
-      clone.querySelector(".first_name").textContent = house.first_name;
-      clone.querySelector(".logo").src = "files/" + house.house + ".png";
-      clone.querySelector(".logo").alt = house.house + " logo";
+  // set clone data
+  clone.querySelector("[data-field=first]").textContent = student.first;
+  clone.querySelector("[data-field=middle]").textContent = student.middle;
+  clone.querySelector("[data-field=last]").textContent = student.last;
+  clone.querySelector("[data-field=gender]").textContent = student.gender;
+  clone.querySelector("[data-field=house]").textContent = student.house;
 
-      // clone.querySelector(".student-card").addEventListener("click", () => {
-      //   displayStudent();
-      // });
-      document.querySelector(".logo").src = "files/" + house.house + ".png";
-      document.querySelector(".logo").alt = house.house + " logo";
+  clone.querySelector(".logo").src = "files/" + student.house + ".png";
+  clone.querySelector(".logo").alt = student.house + " logo";
 
-      hogwartsStudents.appendChild(clone);
-      console.log("cloned");
+  // clone.querySelector(".row").addEventListener("click", () => {
+  //   visDetalje(student);
+  // });
+  document.querySelector(".logo").src = "files/" + student.house + ".png";
+  document.querySelector(".logo").alt = student.house + " logo";
+
+  clone.querySelector("[data-field=inquisitor]").addEventListener("click", function() {
+    setinquisitor(student);
+    displayList(allStudents);
   });
+
+  // append clone to list
+  document.querySelector("#information tbody").appendChild(clone);
 }
 
-function displayStudent() {
-  console.log(displayStudent);
+function setinquisitor(student) {
+  if (student.inquisitor) {
+    student.inquisitor = false;
+  } else {
+    student.inquisitor = true;
+  }
+}
+
+function visDetalje(student) {
+  console.log(visDetalje);
 
   const popup = document.querySelector(".popup-content");
 
   document.querySelector("#detalje").style.display = "flex";
 
   // Hvis man klikker et vilkårligt sted på knappen .close-btn, så lukker man fuldskærmsvisning \\
-  document.querySelector("#detalje .close-btn").addEventListener("click", hideStudent);
+  document.querySelector("#detalje .close-btn").addEventListener("click", skjulDetalje);
 
   // Hvis man klikker et vilkårligt sted på mit pop-up card, så lukker man fuldskærmsvisning \\
-  document.querySelector("#detalje").addEventListener("click", hideStudent);
+  document.querySelector("#detalje").addEventListener("click", skjulDetalje);
 }
 
-// function displayStudent(animal) {
-//   console.log(displayStudent);
-//   // create clone
-//   const clone = document.querySelector("#animal").content.cloneNode(true);
-
-//   // set clone data
-//   clone.querySelector("[data-field=first]").textContent = animal.first;
-//   clone.querySelector("[data-field=middle]").textContent = animal.middle;
-//   clone.querySelector("[data-field=last]").textContent = animal.last;
-//   clone.querySelector("[data-field=last]").textContent = animal.nickname;
-//   clone.querySelector("[data-field=gender]").textContent = animal.gender;
-//   clone.querySelector("[data-field=house]").textContent = animal.house;
-
-//   // append clone to list
-//   document.querySelector("#list tbody").appendChild(clone);
-// }
-
-function hideStudent() {
+function skjulDetalje() {
   document.querySelector("#detalje").style.display = "none";
 }
 
-
-
-
+// Patil sisters
+// filter(student => studentLastName ===..................)

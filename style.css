@@ -51,8 +51,6 @@ li {
   margin: 0;
 }
 
-
-
 .hero {
   background-size: cover;
   width: 100%;
@@ -152,12 +150,16 @@ option {
   background-image: var(--house-crest);
 }
 
+td .logo {
+  max-width: 1.5rem;
+  margin: 0.25rem 0.25rem 0.25rem 0;
+}
+
 /****** Select Theme - End ******/
 
+/***** Table ******/
 
-/***** Students ******/
-
-.students {
+table {
   font-size: 1rem;
   border-spacing: 0;
   width: 100%;
@@ -167,9 +169,20 @@ option {
   border: 1px solid var(--colorTwo);
 }
 
-td, th {
-  padding: .5rem;
+td,
+th {
+  padding: 0.25rem;
   text-align: left;
+  margin: 0;
+}
+
+.house {
+  padding: 0 0 0 0.125rem;
+  margin: 0;
+}
+
+.logo-box {
+  padding: 0 0.125rem 0 0;
   margin: 0;
 }
 
@@ -178,70 +191,21 @@ td, th {
 }
 
 tbody tr:nth-child(2n){
-  background-color: #eee;
+  background-color: #eee;s
 } */
 
 th {
   position: sticky;
   top: 0;
   font-weight: 700;
-  background-color: var( --colorTwo);
+  background-color: var(--colorTwo);
 }
 
-
-
-
-/* __________________ Grid - tidligere ___________________*/
-
-/* .auto-grid {
-  --auto-grid-min-size: 150px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
-  grid-gap: 1rem;
-  padding: 1rem;
-} */
-
-/* .student-card {
-  text-align: center;
-  background: var(--colorTwo);
-  padding: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  grid-row-gap: 0.5rem;
-  position: relative;
-  box-shadow: none;
-  transition: transform 300ms ease-in-out, box-shadow 400ms ease, background 100ms ease;
-  cursor: pointer;
-  padding: 1rem;
-}
-
-.student-card:hover,
-.student-card:focus-within {
-  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
-  transform: translateY(-0.5rem);
-  cursor: pointer;
-} */
-
-/* __________________ Modal - ___________________*/
-
-.personsdata {
-  list-style: none;
-  margin-left: 0;
-  padding-left: 0;
-}
-
-.personsdata li{
-  text-transform: capitalize;
-  padding: 0;
+.inquisitor {
   text-align: center;
 }
 
-.name {
-  font-family: "Cinzel Decorative", cursive;
-  font-weight: 700;
-  color: var(--baseColor);
-} 
-
+/*------------------- Pop-Up -------------------*/
 #detalje {
   position: fixed;
   top: 0;
@@ -277,13 +241,58 @@ th {
   align-items: center;
 }
 
+/* __________________ Grid - tidligere ___________________*/
 
+/* .auto-grid {
+  --auto-grid-min-size: 150px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--auto-grid-min-size), 1fr));
+  grid-gap: 1rem;
+  padding: 1rem;
+} */
 
+/* .student-card {
+  text-align: center;
+  background: var(--colorTwo);
+  padding: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-row-gap: 0.5rem;
+  position: relative;
+  box-shadow: none;
+  transition: transform 300ms ease-in-out, box-shadow 400ms ease, background 100ms ease;
+  cursor: pointer;
+  padding: 1rem;
+}
 
+.student-card:hover,
+.student-card:focus-within {
+  box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.3);
+  transform: translateY(-0.5rem);
+  cursor: pointer;
+} */
+
+/* __________________ Modal - tidligere ___________________*/
+
+/* .persondata {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.persondata li{
+  text-transform: capitalize;
+  padding: 0;
+  text-align: center;
+}
+
+.name {
+  font-family: "Cinzel Decorative", cursive;
+  font-weight: 700;
+  color: var(--baseColor);
+} */
 
 @media only screen and (min-width: 500px) {
-
-
   h1 {
     font-size: 4rem;
   }
@@ -296,10 +305,4 @@ th {
 }
 
 @media only screen and (min-width: 1000px) {
-  
 }
-
-
-
-
-

@@ -12,6 +12,7 @@
 </head>
   
 <body data-house="">
+
     <header class="hero">
         <span class="title-header">
           <h1>Studentlist</h1>
@@ -32,15 +33,21 @@
         </section>
 
         <section>
-            <table id="list" class="students">
+            <table id="information">
                 <thead>
                 <tr>
+                    <th></th>
                     <th>First Name</th>
-                    <th>Description</th>
+                    <th>Middle Name</th>
                     <th>Last Name</th>
                     <th>Nickname</th>
                     <th>Gender</th>
+                    <th>Blood</th>
                     <th>House</th>
+                    <th></th>
+                    <th data-sort="inquisitor">Inquisitorial Squad</th>
+                    <th>Status</th>
+                    <th>Expel</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,25 +57,37 @@
             </table>
         
         </section>
-        <div id="detalje">
+        <div id="detalje" data-house="">
             <article class="popup-content">
             <span><button id="close" class="close-btn">X</button></span>
             <img class="logo" src="" alt="" />
-            <ul class="personsdata">
+            <ul class="persondata">
                 <li class="name">Full Name</li>
+                <!-- <li class="first_name" data-field="first">Name</li>
+                <li class="middle_name" data-field="middle">Middle Name</li>
+                <li class="last_name"  data-field="last">Last Name</li> -->
+                <li class="nickname" data-field="nickname"></li>
+                <li class="gender" data-field="gender">Gender</li>
+                <li class="blood" data-field="blood">Blood-status</li>
                 <li class="house">House</li>
             </ul>
             </article>
         </div>
 </main>
-    <template id="animal">
-      <tr>
-        <td class="first_name" data-field="first">NAME</td>
-        <td class="middle_name" data-field="middle"></td>
-        <td class="last_name"  data-field="last">LAST NAME</td>
+    <template id="student">
+      <tr class="row">
+        <td class="student-img" data-field="img"></td>
+        <td class="first_name" data-field="first">Name</td>
+        <td class="middle_name" data-field="middle">Middle Name</td>
+        <td class="last_name"  data-field="last">Last Name</td>
         <td class="nickname" data-field="nickname"></td>
-        <td class="gender" data-field="gender">GENDER</td>
-        <td class="house" data-field="house">HOUSE</td>
+        <td class="gender" data-field="gender">Gender</td>
+        <td class="blood" data-field="blood">Blood-status</td>
+        <td class="house" data-field="house">House</td>
+        <td class="logo-box" data-field="logo"><img class="logo" src="" alt="" /></td>
+        <td class="inquisitor" data-field="inquisitor">⭐</td>
+        <td class="status" data-field="status">Status</td>
+        <td class="expel" data-field="expel"></td>
       </tr>
     </template>
     
