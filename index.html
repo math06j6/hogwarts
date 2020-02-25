@@ -15,8 +15,8 @@
 
     <header class="hero">
         <span class="title-header">
-          <h1>Studentlist</h1>
-          <h2>11C.01.03 - The Theme-inator</h2>
+          <h1>Hogwarts</h1>
+          <h2>11C.04.04 - Hacked Hogwarts student List</h2>
         </span>
     </header>
     <main>
@@ -42,11 +42,12 @@
                     <th>Last Name</th>
                     <th>Nickname</th>
                     <th>Gender</th>
-                    <th>Blood</th>
-                    <th>House</th>
                     <th></th>
+                    <th>House</th>
+                    <th data-sort="prefect">Prefect</th>
                     <th data-sort="inquisitor">Inquisitorial Squad</th>
                     <th>Status</th>
+                    <th>Blood</th>
                     <th data-sort="expel">Expel</th>
                 </tr>
                 </thead>
@@ -68,11 +69,16 @@
                 <li class="last_name"  data-field="last">Last Name</li> -->
                 <li class="nickname" data-field="nickname"></li>
                 <li class="gender" data-field="gender">Gender</li>
-                <li class="blood" data-field="blood">Blood-status</li>
                 <li class="house">House</li>
+                <li class="blood" data-field="blood">🩸</li>
             </ul>
             </article>
         </div>
+        <footer>
+          <p class="hack">⚡</p>
+          <p class="">🔥💫🗝️ 🧹✨🔷🔶❇️🛡️🎖️♂ ♂♂♀</p>
+          
+        </footer>
 </main>
     <template id="student">
       <tr class="row">
@@ -82,15 +88,15 @@
         <td class="last_name"  data-field="last">Last Name</td>
         <td class="nickname" data-field="nickname"></td>
         <td class="gender" data-field="gender">Gender</td>
-        <td class="blood" data-field="blood">Blood-status</td>
-        <td class="house" data-field="house">House</td>
         <td class="logo-box" data-field="logo"><img class="logo" src="" alt="" /></td>
-        <td class="inquisitor" data-field="inquisitor">⭐</td>
+        <td class="house" data-field="house">House</td>
+        <td class="prefect" data-field="prefect">🛡</td>
+        <td class="inquisitor" data-field="inquisitor">🎖️</td>
         <td class="status" data-field="status">Status</td>
-        <td class="expel" data-field="expel">⭐</td>
+        <td class="blood" data-field="blood">🩸</td>
+        <td class="expel" data-field="expel"></td>
       </tr>
     </template>
-    
     <script src="script.js"></script>
   </body>
 </html>

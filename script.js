@@ -79,12 +79,22 @@ function displayStudent(student) {
   // TODO: Show inquisitor ⭐ or ☆
   let studentInquisitor = clone.querySelector("[data-field=inquisitor]");
   if (student.inquisitor) {
-    studentInquisitor.textContent = "⭐";
+    studentInquisitor.textContent = "🎖️";
+    studentInquisitor.style.filter = "grayscale(65%) hue-rotate(140deg)";
   } else {
-    studentInquisitor.textContent = "☆";
+    studentInquisitor.textContent = "🎖️";
   }
 
-  // TODO: Display expel studet ⭐ or ☆
+  // TODO: Show inquisitor ⭐ or ☆
+  let studentPrefect = clone.querySelector("[data-field=prefect]");
+  if (student.prefect) {
+    studentPrefect.textContent = "🛡";
+    studentPrefect.style.filter = "grayscale(900%) hue-rotate(255deg)";
+  } else {
+    studentPrefect.textContent = "🛡";
+  }
+
+  // TODO: Display expel studet ✘ or ☆
   let expelOption = clone.querySelector("[data-field=expel]");
   if (student.expel) {
     expelOption.textContent = "✘";
@@ -102,14 +112,19 @@ function displayStudent(student) {
   clone.querySelector(".logo").src = "files/" + student.house + ".png";
   clone.querySelector(".logo").alt = student.house + " logo";
 
-  // clone.querySelector(".row").addEventListener("click", () => {
-  //   visDetalje(student);
-  // });
+  clone.querySelector(".row").addEventListener("click", () => {
+    visDetalje(student);
+  });
   document.querySelector(".logo").src = "files/" + student.house + ".png";
   document.querySelector(".logo").alt = student.house + " logo";
 
   clone.querySelector("[data-field=inquisitor]").addEventListener("click", function() {
     setInquisitor(student);
+    displayList(allStudents);
+  });
+
+  clone.querySelector("[data-field=prefect]").addEventListener("click", function() {
+    setPrefect(student);
     displayList(allStudents);
   });
 
@@ -127,6 +142,14 @@ function setInquisitor(student) {
     student.inquisitor = false;
   } else {
     student.inquisitor = true;
+  }
+}
+
+function setPrefect(student) {
+  if (student.prefect) {
+    student.prefect = false;
+  } else {
+    student.prefect = true;
   }
 }
 
