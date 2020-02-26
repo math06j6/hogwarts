@@ -152,7 +152,7 @@ option {
 
 td .logo {
   max-width: 1.2rem;
-  margin: auto;
+  /* margin: 0 1rem 0 0.25rem; */
 }
 
 /****** Select Theme - End ******/
@@ -182,13 +182,14 @@ th {
 }
 
 .house {
-  padding: 0 0 0 0.125rem;
-  margin: 0;
+  white-space: nowrap;
 }
 
 .logo-box {
   padding: 0;
   margin: 0;
+  vertical-align: middle;
+  padding-left: 0.25rem;
 }
 
 /* tbody tr:nth-child(1n){
@@ -204,14 +205,19 @@ th {
   top: 0;
   font-weight: 700;
   background-color: var(--colorTwo);
+  white-space: nowrap;
 }
 
+.quidditch,
 .prefect,
 .expel,
-.inquisitor {
+.inquisitor,
+.blood {
   text-align: center;
+  padding: 0;
+  line-height: 0;
+  cursor: pointer;
 }
-
 .prefect,
 .inquisitor {
   filter: grayscale(100%) hue-rotate(140deg) opacity(0.2);
@@ -220,15 +226,10 @@ th {
 
 .expel {
   color: var(--baseColor);
-  cursor: pointer;
 }
 
 .expel:hover {
   color: red;
-}
-
-.prefect-badge {
-  filter: grayscale(100%);
 }
 
 /*------------------- Pop-Up -------------------*/
@@ -254,7 +255,7 @@ th {
   min-width: initial;
   top: 1rem;
   right: 5vw;
-  color: inherit;
+  color: var(--baseColor);
   cursor: pointer;
 }
 

@@ -76,7 +76,17 @@ function displayStudent(student) {
   // create clone
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
-  // TODO: Show inquisitor ⭐ or ☆
+  // Display  Quidditch players
+  let quidditchPlayer = clone.querySelector("[data-field=quidditch]");
+  if (student.quidditch) {
+    quidditchPlayer.textContent = "🧹";
+    quidditchPlayer.style.filter = "filter: initial;";
+  } else {
+    quidditchPlayer.textContent = "🧹";
+    quidditchPlayer.style.filter = "grayscale(100%)";
+  }
+
+  // Display inquisitors
   let studentInquisitor = clone.querySelector("[data-field=inquisitor]");
   if (student.inquisitor) {
     studentInquisitor.textContent = "🎖️";
@@ -85,7 +95,7 @@ function displayStudent(student) {
     studentInquisitor.textContent = "🎖️";
   }
 
-  // TODO: Show inquisitor ⭐ or ☆
+  // Display prefects
   let studentPrefect = clone.querySelector("[data-field=prefect]");
   if (student.prefect) {
     studentPrefect.textContent = "🛡";
@@ -94,7 +104,7 @@ function displayStudent(student) {
     studentPrefect.textContent = "🛡";
   }
 
-  // TODO: Display expel studet ✘ or ☆
+  // Expel students
   let expelOption = clone.querySelector("[data-field=expel]");
   if (student.expel) {
     expelOption.textContent = "✘";
@@ -115,8 +125,14 @@ function displayStudent(student) {
   clone.querySelector(".row").addEventListener("click", () => {
     visDetalje(student);
   });
+
   document.querySelector(".logo").src = "files/" + student.house + ".png";
   document.querySelector(".logo").alt = student.house + " logo";
+
+  clone.querySelector("[data-field=quidditch]").addEventListener("click", function() {
+    selectQuidditchPlayer(student);
+    displayList(allStudents);
+  });
 
   clone.querySelector("[data-field=inquisitor]").addEventListener("click", function() {
     setInquisitor(student);
@@ -135,6 +151,14 @@ function displayStudent(student) {
 
   // append clone to list
   document.querySelector("#information tbody").appendChild(clone);
+}
+
+function selectQuidditchPlayer(student) {
+  if (student.quidditch) {
+    student.quidditch = false;
+  } else {
+    student.quidditch = true;
+  }
 }
 
 function setInquisitor(student) {
@@ -165,6 +189,8 @@ function visDetalje(student) {
   console.log(visDetalje);
 
   const popup = document.querySelector(".popup-content");
+
+  document.querySelector("#detalje").setAttribute("data-house", student.house);
 
   document.querySelector("#detalje").style.display = "flex";
 
