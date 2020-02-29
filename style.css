@@ -51,6 +51,51 @@ li {
   margin: 0;
 }
 
+.hide {
+  display: none;
+}
+
+.info_wrapper {
+  display: grid;
+}
+
+.modal-row {
+  /* display: flex;
+  flex-wrap: wrap; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.info {
+  padding: 1rem 0;
+  flex-grow: 1;
+  /* flex-basis: 300px; */
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  text-align: center;
+}
+
+dt,
+dd {
+  font-family: "Cinzel", serif;
+  font-weight: 400;
+  /* color: var(--colorOne); */
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0rem 1rem;
+}
+
+dt {
+  color: var(--baseColor);
+}
+dd {
+  color: var(--colorTwo);
+}
+
 .hero {
   background-size: cover;
   width: 100%;
@@ -65,22 +110,18 @@ li {
   flex-direction: column-reverse;
   height: 100%;
   color: var(--baseColor);
-  padding: 10vh 1rem;
-  margin: 0 auto;
-  max-width: 1400px;
+  padding: 10vh 0;
+  margin: 0 2vw;
 }
 
 section {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem;
+  margin: 0 2vw;
+  padding: 1rem 0;
+  /* overflow: auto; */
+  /* overflow-x: auto; */
 }
 
 /******v Select Theme ******/
-
-.top {
-  padding: 1rem;
-}
 
 option {
   color: var(--colorTwo);
@@ -89,16 +130,21 @@ option {
   font-weight: 400;
 }
 
+.filter,
+.search-btn,
 select {
   border: 1px solid currentColor;
   background: transparent;
   font-family: "Cinzel", serif;
-  margin: 0 0.5rem;
+  margin: 1rem 0.5rem;
   padding: 0.25rem 0.5rem;
   text-align: center;
   cursor: pointer;
+  border-radius: 5px;
 }
 
+.filter,
+.search-btn,
 select,
 label,
 option {
@@ -106,6 +152,23 @@ option {
   font-weight: 400;
   color: currentColor;
   font-size: 1rem;
+  line-height: 1.6;
+}
+
+.search {
+  font-family: "Cinzel", serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--colorTwo);
+  background-color: var(--baseColor);
+  border-color: var(--colorTwo);
+  margin: 1rem 0;
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+}
+
+.search::placeholder {
+  color: var(--colorTwo);
 }
 
 option {
@@ -146,7 +209,7 @@ option {
   width: 100%;
   max-width: 100%;
   height: auto;
-  max-width: 400px;
+  max-width: 200px;
   background-image: var(--house-crest);
 }
 
@@ -159,6 +222,11 @@ td .logo {
 
 /***** Table ******/
 
+.students {
+  overflow-x: auto;
+  margin: 0 2vw;
+}
+
 table {
   font-size: 1rem;
   border-spacing: 0;
@@ -168,6 +236,7 @@ table {
   color: var(--baseColor);
   border: 1px solid var(--colorTwo);
   border-top: 0;
+  line-height: 1.6;
 }
 
 thead {
@@ -176,9 +245,18 @@ thead {
 
 td,
 th {
-  padding: 0.25rem;
+  padding: 0.5rem 0.75rem;
   text-align: left;
   margin: 0;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  font-weight: 700;
+  background-color: var(--colorTwo);
+  white-space: nowrap;
+  height: 2.5em;
 }
 
 .house {
@@ -192,32 +270,23 @@ th {
   padding-left: 0.25rem;
 }
 
-/* tbody tr:nth-child(1n){
-  background-color: white;
-}
-
-tbody tr:nth-child(2n){
-  background-color: #eee;s
-} */
-
-th {
-  position: sticky;
-  top: 0;
-  font-weight: 700;
-  background-color: var(--colorTwo);
-  white-space: nowrap;
-}
-
 .quidditch,
 .prefect,
 .expel,
 .inquisitor,
 .blood {
+  cursor: pointer;
+}
+
+tr .quidditch,
+tr .prefect,
+tr .inquisitor,
+tr .blood {
   text-align: center;
   padding: 0;
   line-height: 0;
-  cursor: pointer;
 }
+
 .prefect,
 .inquisitor {
   filter: grayscale(100%) hue-rotate(140deg) opacity(0.2);
@@ -232,7 +301,66 @@ th {
   color: red;
 }
 
+footer {
+  width: 100%;
+  bottom: 0px;
+}
+
+.footer-wrapper {
+  display: flex;
+  margin: 0 2vw;
+}
+
+.hack {
+  border: none;
+  background: transparent;
+
+  padding: 0 0 1rem 0;
+  font-size: 1.5rem;
+  margin-left: auto;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.settings {
+  display: inline-block;
+  /* color: */
+  width: 40px;
+  height: 100%;
+  color: var(--baseColor);
+  background-color: var(--backgroundColor);
+  border: none;
+  padding: 0;
+}
+
+.settings svg {
+  margin: auto;
+}
+
 /*------------------- Pop-Up -------------------*/
+
+.modal-header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.modal-header .logo {
+  background-image: var(--house-crest);
+  top: 1rem;
+  left: 1rem;
+  position: fixed;
+  max-width: 45px;
+}
+
+#detalje .student-img {
+  padding: 0;
+  margin: 2rem;
+  border: 6px solid var(--baseColor);
+  border-radius: 38px;
+  color: var(--baseColor);
+}
+
 #detalje {
   position: fixed;
   top: 0;
@@ -248,13 +376,15 @@ th {
 
 #detalje .close-btn {
   font-size: 2rem;
+  font-family: "Cinzel Decorative", cursive;
   font-weight: 700;
+  text-transform: uppercase;
   background-color: transparent;
   border: none;
   position: fixed;
   min-width: initial;
   top: 1rem;
-  right: 5vw;
+  right: 1rem;
   color: var(--baseColor);
   cursor: pointer;
 }

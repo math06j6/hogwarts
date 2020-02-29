@@ -2,20 +2,10 @@
 
 // const dataUrl = "https://petlatkea.dk/2020/hogwarts/students.json";
 
-window.addEventListener("DOMContentLoaded", inquisitort);
+window.addEventListener("DOMContentLoaded", start);
 
-const allStudents = [];
-
-function inquisitort() {
-  console.log("ready");
-  document.querySelector("select#theme").addEventListener("change", selectTheme);
-  skjulDetalje();
-  loadJSON();
-}
-
-function selectTheme() {
-  document.querySelector("body").setAttribute("data-house", this.value);
-}
+let allStudents = [];
+const HTML = {};
 
 const Student = {
   first: "",
@@ -23,8 +13,71 @@ const Student = {
   last: "",
   gender: "",
   house: "",
+  image: "",
   inquisitor: false
 };
+
+function start() {
+  console.log("start");
+  document.querySelector("select#theme").addEventListener("change", selectTheme);
+  skjulDetalje();
+
+  document.querySelector("[data-filter='all']").addEventListener("click", displayAll);
+  document.querySelector("[data-filter='gryffindor']").addEventListener("click", filterGryffindor);
+  document.querySelector("[data-filter='hufflepuff']").addEventListener("click", filterHufflepuff);
+  document.querySelector("[data-filter='ravenclaw']").addEventListener("click", filterRavenclaw);
+  document.querySelector("[data-filter='slytherin']").addEventListener("click", filterSlytherin);
+
+  loadJSON();
+}
+
+function displayAll() {
+  const filterAll = allStudents.filter(isAll);
+  displayList(filterAll);
+}
+
+function filterGryffindor() {
+  const onlyGryffindor = allStudents.filter(isGryffindor);
+  displayList(onlyGryffindor);
+}
+
+function filterHufflepuff() {
+  const onlyHufflepuff = allStudents.filter(isHufflepuff);
+  displayList(onlyHufflepuff);
+}
+
+function filterRavenclaw() {
+  const onlyRavenclaw = allStudents.filter(isRavenclaw);
+  displayList(onlyRavenclaw);
+}
+
+function filterSlytherin() {
+  const onlySlytherin = allStudents.filter(isSlytherin);
+  displayList(onlySlytherin);
+}
+
+function isAll(student) {
+  return student;
+}
+function isGryffindor(student) {
+  return student.House === "gryffindor";
+}
+
+function isHufflepuff(student) {
+  return student.house === "hufflepuff";
+}
+
+function isRavenclaw(student) {
+  return student.house === "ravenclaw";
+}
+
+function isSlytherin(student) {
+  return student.house === "slytherin";
+}
+
+function selectTheme() {
+  document.querySelector("body").setAttribute("data-house", this.value);
+}
 
 async function loadJSON() {
   const response = await fetch("https://petlatkea.dk/2020/hogwarts/students.json");
@@ -39,17 +92,36 @@ function prepareObjects(jsonData) {
   jsonData.forEach(jsonObject => {
     const student = Object.create(Student);
 
+    // Fullname of student - Trim + Remove whitespace
     let fullName = jsonObject.fullname;
     fullName = fullName.toLowerCase();
     fullName = fullName.trim();
 
-    student.first = jsonObject.fullname.substring(0, jsonObject.fullname.indexOf(" "));
+    // First name
+    let firstLetter = fullName.substring(0, 1);
+    firstLetter = firstLetter.toUpperCase();
+
+    student.first = fullName.substring(1, fullName.indexOf(" "));
+    student.first = student.first[0].toUpperCase() + student.first.substring(1).toLowerCase();
+    student.first = firstLetter + jsonObject.fullname.substring(1, jsonObject.fullname.indexOf(" "));
+
+    // Middle Name
     student.middle = jsonObject.fullname.substring(jsonObject.fullname.indexOf(" ") + 5, jsonObject.fullname.lastIndexOf(" "));
-    student.last = jsonObject.fullname.substring(jsonObject.fullname.lastIndexOf(" "));
+
+    // Last Name
+    student.last = fullName.substring(fullName.lastIndexOf(" ") + 1, fullName.length + 1);
+    let firstletterLastName = student.last.substring(0, 1);
+    firstletterLastName = firstletterLastName.toUpperCase();
+    student.last = firstletterLastName + fullName.substring(fullName.lastIndexOf(" ") + 2, fullName.length + 1);
+
+    // Prepare Gender
     student.gender = jsonObject.gender;
-    student.house = jsonObject.house;
+    student.gender = student.gender[0].toUpperCase() + student.gender.substring(1).toLowerCase();
+
+    // student.gender = jsonObject.gender[0].toUpperCase() + jsonObject.gender.substring(1).toLowerCase();
 
     // Prepare the house data
+    student.house = jsonObject.house;
     student.house = student.house.trim();
     student.house = student.house.toLowerCase();
     let capitalizeHouse = student.house.substring(0, 1);
@@ -70,6 +142,34 @@ function displayList() {
 
   // build a new list
   allStudents.forEach(displayStudent);
+
+  // Search
+  let search = document.querySelector(".search");
+  let el = document.querySelectorAll(".list-row");
+
+  search.addEventListener("keyup", function() {
+    el.forEach(student => {
+      console.log(student);
+      if (
+        student
+          .querySelector(".first_name")
+          .textContent.toLowerCase()
+          .includes(search.value.toLowerCase()) ||
+        student
+          .querySelector(".last_name")
+          .textContent.toLowerCase()
+          .includes(search.value.toLowerCase()) ||
+        student
+          .querySelector(".house")
+          .textContent.toLowerCase()
+          .includes(search.value.toLowerCase())
+      ) {
+        student.classList = "list-row";
+      } else {
+        student.classList = "list-row hide";
+      }
+    });
+  });
 }
 
 function displayStudent(student) {
@@ -119,15 +219,12 @@ function displayStudent(student) {
   clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("[data-field=house]").textContent = student.house;
 
-  clone.querySelector(".logo").src = "files/" + student.house + ".png";
+  clone.querySelector(".logo").src = "files/logos/" + student.house + ".png";
   clone.querySelector(".logo").alt = student.house + " logo";
 
-  clone.querySelector(".row").addEventListener("click", () => {
+  clone.querySelector(".list-row").addEventListener("click", () => {
     visDetalje(student);
   });
-
-  document.querySelector(".logo").src = "files/" + student.house + ".png";
-  document.querySelector(".logo").alt = student.house + " logo";
 
   clone.querySelector("[data-field=quidditch]").addEventListener("click", function() {
     selectQuidditchPlayer(student);
@@ -190,20 +287,65 @@ function visDetalje(student) {
 
   const popup = document.querySelector(".popup-content");
 
+  document.querySelector("#detalje .first_name").textContent = student.first;
+  document.querySelector("#detalje .middle_name").textContent = student.middle;
+  document.querySelector("#detalje .last_name").textContent = student.last;
+  document.querySelector("#detalje .nickname").textContent = student.nickname;
+  document.querySelector("#detalje .gender").textContent = student.gender;
+
+  document.querySelector("[data-field=house]").textContent = student.house;
+  document.querySelector("#detalje .logo").src = "files/logos/" + student.house + ".png";
+  document.querySelector("#detalje .logo").alt = student.house + " logo";
+  document.querySelector("#detalje .house").textContent = student.house;
+
+  if (student.lastName == "Finch-Fletchley") {
+    document.querySelector("#detalje .student-img").src = "files/images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+  } else if (student.firstName == "Padma") {
+    document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + "padme" + ".png";
+  } else if (student.lastName == "Patil") {
+    document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + student.firs.toLowerCase() + ".png";
+  } else {
+    document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + student.first.substring(0, 1).toLowerCase() + ".png";
+  }
+  document.querySelector("#detalje .student-img").alt = student.firstName + " " + student.last;
+
+  document.querySelector(".logo").src = "files/logos/" + student.house + ".png";
+  document.querySelector(".logo").alt = student.house + " logo";
+
   document.querySelector("#detalje").setAttribute("data-house", student.house);
 
   document.querySelector("#detalje").style.display = "flex";
 
-  // Hvis man klikker et vilkårligt sted på knappen .close-btn, så lukker man fuldskærmsvisning \\
+  // Hvis man klikker et vilkårligt sted på knappen .close-btn, så lukker man fuldskærmsvisning
   document.querySelector("#detalje .close-btn").addEventListener("click", skjulDetalje);
 
-  // Hvis man klikker et vilkårligt sted på mit pop-up card, så lukker man fuldskærmsvisning \\
+  // Hvis man klikker et vilkårligt sted på mit pop-up card, så lukker man fuldskærmsvisning
   document.querySelector("#detalje").addEventListener("click", skjulDetalje);
 }
 
 function skjulDetalje() {
   document.querySelector("#detalje").style.display = "none";
 }
+
+// // hacking
+// function hackTheSystem {
+//   console.log()
+
+//   const myself=  = Object.create(Student);
+//   myself.name = "Mathias";
+//   myself.type =
+//   myself.desc = "hackerman"
+
+//   allAnimals.push("myself");
+// }
+
+// if ( theSystemHasBeenHacked ) {
+//   theSystemHasBeenHacked =true;
+
+//   allAnimals.forEach(animal =>{
+//   animal.age = Math.floor(Math.random())*
+//   });
+// }
 
 // Patil sisters
 // filter(student => studentLastName ===..................)
