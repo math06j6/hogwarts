@@ -19,6 +19,14 @@ const Student = {
 
 function start() {
   console.log("start");
+  HTML.settings = document.querySelector("#settings");
+
+  HTML.settings.classList.add("hidden");
+  document.querySelector(".settings_btn").addEventListener("click", changeSettings);
+  // HTML.settingsBtn = document.querySelector(".settings_btn");
+  // HTML.settingsBtn.addEventListener("click", changeSettings);
+  console.log("changeSettings");
+
   document.querySelector("select#theme").addEventListener("change", selectTheme);
   skjulDetalje();
 
@@ -166,7 +174,7 @@ function displayList() {
       ) {
         student.classList = "list-row";
       } else {
-        student.classList = "list-row hide";
+        student.classList = "list-row hidden";
       }
     });
   });
@@ -326,6 +334,27 @@ function visDetalje(student) {
 function skjulDetalje() {
   document.querySelector("#detalje").style.display = "none";
 }
+
+function changeSettings() {
+  console.log(changeSettings);
+  HTML.settings.classList.remove("hidden");
+
+  document.querySelector("#settings .close-btn").addEventListener("click", hideSettings);
+}
+
+function hideSettings() {
+  console.log(changeSettings);
+  HTML.settings.classList.add("hidden");
+
+  // document.querySelector("#detalje .close-btn").addEventListener("click", skjulDetalje);
+
+  // // Hvis man klikker et vilkårligt sted på mit pop-up card, så lukker man fuldskærmsvisning
+  // document.querySelector("#detalje").addEventListener("click", skjulDetalje);
+}
+
+// function closePopup() {
+//   HTML.settings.classList.add("hidden");
+// }
 
 // // hacking
 // function hackTheSystem {

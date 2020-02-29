@@ -8,39 +8,27 @@
     <meta name="robots" content="noindex" />
     <link rel="stylesheet" href="style.css" />
     <!-- <link rel="stylesheet" type="text/css" href="style.css" /> -->
-    <link href="https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative:700&display=swap" rel="stylesheet">  
-</head>
-  
-<body data-house="">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative:700&display=swap" rel="stylesheet" />
+  </head>
 
+  <body data-house="">
     <header class="hero">
-        <span class="title-header">
-          <h1>Hogwarts</h1>
-          <h2>11C.04.04 - Hacked Hogwarts student List</h2>
-        </span>
+      <span class="title-header">
+        <h1>Hogwarts</h1>
+        <h2>11C.04.04 - Hacked Hogwarts student List</h2>
+      </span>
     </header>
     <main>
-        <section class="top">
-          <div>
-              <label id="" for="theme">Change Theme:</label>
-              <select name="theme" id="theme">
-                <option value="Default" value="Default" selected>Default</option>
-                <option value="Gryffindor">Gryffindor theme</option>
-                <option value="Hufflepuff">Hufflepuff theme</option>
-                <option value="Ravenclaw">Ravenclaw theme</option>
-                <option value="Slytherin">Slytherin theme</option>
-              </select>
-            </label>
-          </div>
-          <div>
-            <p>Filter:</p>
-            <button class="filter" data-action="filter" data-filter="all" selected>All</button>
-            <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
-            <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
-            <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
-            <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
-          </div>
-          <!-- <div>
+      <section class="top">
+        <div>
+          <p>Filter:</p>
+          <button class="filter" data-action="filter" data-filter="all" selected>All</button>
+          <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+          <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+          <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+          <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+        </div>
+        <!-- <div>
             <label id="" for="theme">Filter:</label>
             <select name="theme" id="theme">
               <option class="filter" data-action="filter" value="All" data-filter="all" selected>All</option>
@@ -51,134 +39,145 @@
             </select>
             </label>
           </div> -->
-          <div>
-            <form>
-              <div>
-                <input type="search" class="search" name="search" placeholder="Search the list...">
-                <!-- <button class="search-btn">Search</button> -->
-
-              </div>
-            </form>
-          </div>
-        </section>
-        <section class="students">
-            <table id="information">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Last Name</th>
-                    <th>Nickname</th>
-                    <th>Gender</th>
-                    <th>House</th>
-                    <th data-sort="quidditch">Quidditch Player</th>
-                    <th data-sort="prefect">Prefect</th>
-                    <th data-sort="inquisitor">Inquisitorial Squad</th>
-                    <th>Blood</th>
-                    <th data-sort="expel">Expel</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- template will be copied and inserted here -->
-                </tbody>
-            </table>
-        
-        </section>
-        <div id="detalje" data-house="">
-            <article class="popup-content">
-            <header class="modal-header">
-              <img class="logo" src="" alt="" />
-              <button id="close" class="close-btn">X</button>
-            </header>
-            <img class="student-img" src="" alt="" />
-            <div class="info_wrapper">
-              <div class="modal-row ">
-                <dl class="info">
-                  <dt>First Name</dt>
-                  <dd class="first_name" data-field="first">Name</dd>
-                </dl>
-                <dl class="info">
-                  <dt>Middle Name</dt>
-                  <dd class="middle_name" data-field="middle"></dd>
-                </dl>
-                <dl class="info">
-                  <dt>Last Name</dt>
-                  <dd class="last_name"  data-field="last">Last Name</dd>
-                </dl>
-                <dl class="info">
-                  <dt>Nickname</dt>
-                  <dd class="nickname" data-field="nickname">None</dd>
-                </dl>
-              </div> 
-              <div class="modal-row ">
-                <dl class="info">
-                  <dt>Gender</dt>
-                  <dd class="gender" data-field="gender">Gender</dd>
-                </dl>
-                <dl class="info">
-                  <dt>House</dt>
-                  <!-- <dd class="house"> <span class="" data-field="house">House</span>
-                    <span class="logo-box" data-field="logo"><img class="logo" src="" alt="" /></span>
-                  </dd> -->
-                  <dd class="house" data-field="">
-                    <span class="" data-field="house">House</span>
-                    <img class="logo" src="" alt="" />
-                  </dd>
-                </dl>
-              </div> 
-              <div class="modal-row ">
-                <dl class="info">
-                  <dt>Quidditch</dt>
-                  <dd class="quidditch">🧹</dd>
-                </dl>
-                <dl class="info">
-                  <dt>Prefect</dt>
-                  <dd class="prefect" data-field="prefect">🛡</dd>
-                </dl>
-                <dl class="info">
-                  <dt>Inquisitor Squad</dt>
-                  <dd class="inquisitor" data-field="inquisitor">🎖️</dd>
-                </dl>
-              </div>
+        <div>
+          <form>
+            <div>
+              <input type="search" class="search" name="search" placeholder="Search the list..." />
+              <!-- <button class="search-btn">Search</button> -->
+            </div>
+          </form>
+        </div>
+      </section>
+      <section class="students">
+        <table id="information">
+          <thead>
+            <tr>
+              <th></th>
+              <th>First Name</th>
+              <th>Middle Name</th>
+              <th>Last Name</th>
+              <th>Nickname</th>
+              <th>Gender</th>
+              <th>House</th>
+              <th data-sort="quidditch">Quidditch Player</th>
+              <th data-sort="prefect">Prefect</th>
+              <th data-sort="inquisitor">Inquisitorial Squad</th>
+              <th>Blood</th>
+              <th data-sort="expel">Expel</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- template will be copied and inserted here -->
+          </tbody>
+        </table>
+      </section>
+      <div id="settings">
+        <article class="popup-content">
+          <header class="modal-header">
+            <button id="close" class="close-btn">X</button>
+            <h2>Settings</h2>
+          </header>
+          <div class="info_wrapper">
+            <div class="">
+              <label id="" for="theme">Change Theme:</label>
+              <select name="theme" id="theme">
+                <option value="Default" value="Default" selected>Default</option>
+                <option value="Gryffindor">Gryffindor theme</option>
+                <option value="Hufflepuff">Hufflepuff theme</option>
+                <option value="Ravenclaw">Ravenclaw theme</option>
+                <option value="Slytherin">Slytherin theme</option>
+              </select>
             </div>
           </div>
-            <!-- <ul class="persondata">
-                <li class="name">Full Name</li> -->
-                <!-- <li class="first_name" data-field="first">Name</li> -->
-                <!-- <li class="middle_name" data-field="middle">Middle Name</li>
-                <li class="last_name"  data-field="last">Last Name</li>
-                <li class="nickname" data-field="nickname"></li> -->
-                <!-- <li class="gender" data-field="gender">Gender</li> -->
-                <!-- <li class="house">House</li>
-                <li class="quidditch">🧹</li>
-                <li class="blood" data-field="blood">🩸</li> -->
-            <!-- </ul> -->
-            </article>
-        </div>
-        <footer>
-          <div class="footer-wrapper">
-            <button class="settings">
-              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-            </button>
-            <button class="hack">⚡</button>
-            <!-- <p class="">🔥💫🗝️ 🧹✨🔷🔶❇️🛡️🎖️♂ ♂♂♀</p> -->
+        </article>
+      </div>
+      <div id="detalje" data-house="">
+        <article class="popup-content">
+          <header class="modal-header">
+            <img class="logo" src="" alt="" />
+            <button id="close" class="close-btn">X</button>
+          </header>
+          <img class="student-img" src="" alt="" />
+          <div class="info_wrapper">
+            <div class="modal-row ">
+              <dl class="info">
+                <dt>First Name</dt>
+                <dd class="first_name" data-field="first">Name</dd>
+              </dl>
+              <dl class="info">
+                <dt>Middle Name</dt>
+                <dd class="middle_name" data-field="middle"></dd>
+              </dl>
+              <dl class="info">
+                <dt>Last Name</dt>
+                <dd class="last_name" data-field="last">Last Name</dd>
+              </dl>
+              <dl class="info">
+                <dt>Nickname</dt>
+                <dd class="nickname" data-field="nickname">None</dd>
+              </dl>
+            </div>
+            <div class="modal-row ">
+              <dl class="info">
+                <dt>Gender</dt>
+                <dd class="gender" data-field="gender">Gender</dd>
+              </dl>
+              <dl class="info">
+                <dt>House</dt>
+                <!-- <dd class="house"> <span class="" data-field="house">House</span>
+                    <span class="logo-box" data-field="logo"><img class="logo" src="" alt="" /></span>
+                  </dd> -->
+                <dd class="house" data-field="">
+                  <span class="" data-field="house">House</span>
+                  <img class="logo" src="" alt="" />
+                </dd>
+              </dl>
+            </div>
+            <div class="modal-row ">
+              <dl class="info">
+                <dt>Quidditch</dt>
+                <dd class="quidditch">🧹</dd>
+              </dl>
+              <dl class="info">
+                <dt>Prefect</dt>
+                <dd class="prefect" data-field="prefect">🛡</dd>
+              </dl>
+              <dl class="info">
+                <dt>Inquisitor Squad</dt>
+                <dd class="inquisitor" data-field="inquisitor">🎖️</dd>
+              </dl>
+            </div>
           </div>
-        </footer>
-</main>
+        </article>
+      </div>
+    </main>
+    <footer>
+      <div class="footer-wrapper">
+        <button class="settings_btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"
+            ></path>
+          </svg>
+        </button>
+        <button class="hack">⚡</button>
+        <!-- <p class="">🔥💫🗝️ 🧹✨🔷🔶❇️🛡️🎖️♂ ♂♂♀</p> -->
+      </div>
+    </footer>
     <template id="student">
       <tr class="list-row">
         <td class="student-image" data-field="img"><img class="student-img" src="" alt="" /></td>
         <td class="first_name" data-field="first">Name</td>
         <td class="middle_name" data-field="middle">Middle Name</td>
-        <td class="last_name"  data-field="last">Last Name</td>
+        <td class="last_name" data-field="last">Last Name</td>
         <td class="nickname" data-field="nickname"></td>
         <td class="gender" data-field="gender">Gender</td>
         <!-- <td class="logo-box" data-field="logo"><img class="logo" src="" alt="" /></td> -->
         <!-- <td class="house" data-field="house"><span class="test"></span>House</td> -->
         <td class="house" data-field="">
-          <span class="" data-field="house">House</span>
-          <span class="logo-box" data-field="logo"><img class="logo" src="" alt="" /></span>
+          <span class="house-txt" data-field="house">House</span>
+          <span class="logo-box" data-field="logo"><img class="logo" src="" alt=""/></span>
         </td>
         <td class="quidditch" data-field="quidditch">🧹</td>
         <td class="prefect" data-field="prefect">🛡</td>
