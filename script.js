@@ -1,7 +1,5 @@
 "use strict";
 
-// const dataUrl = "https://petlatkea.dk/2020/hogwarts/students.json";
-
 window.addEventListener("DOMContentLoaded", start);
 
 let allStudents = [];
@@ -355,11 +353,11 @@ function displayStudent(student) {
 function displayBlood(str) {
   console.log("displayBlood");
   if (str === "pure") {
-    return `/files/pure.svg`;
+    return `files/pure.svg`;
   } else if (str === "half") {
-    return `/files/half.svg`;
+    return `files/half.svg`;
   } else {
-    return `/files/muggle.svg`;
+    return `files/muggle.svg`;
   }
 }
 
@@ -422,10 +420,9 @@ function visDetalje(student) {
   document.querySelector("#detalje .logo").alt = student.house + " logo";
   document.querySelector("#detalje .house").textContent = student.house;
   document.querySelector("#detalje .blood").src = displayBlood(student.blood);
+  document.querySelector("#detalje .blood").alt = "Blood";
 
-  if (student.last == "Finch-Fletchley") {
-    document.querySelector("#detalje .student-img").src = "files/images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
-  } else if (student.firstName == "Padma") {
+  if (student.firstName == "Padma") {
     document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + "padme" + ".png";
   } else if (student.last == "Patil") {
     document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + student.firs.toLowerCase() + ".png";
@@ -480,18 +477,6 @@ function hackHogwarts(news) {
   displayList(news);
 }
 
-// // hacking
-// function hackTheSystem {
-//   console.log()
-
-//   const myself=  = Object.create(Student);
-//   mySelf.name = "Mathias";
-//   myself.type =
-//   myself.desc = "hackerman"
-
-//   allAnimals.push("myself");
-// }
-
 // if ( theSystemHasBeenHacked ) {
 //   theSystemHasBeenHacked =true;
 
@@ -499,6 +484,3 @@ function hackHogwarts(news) {
 //   animal.age = Math.floor(Math.random())*
 //   });
 // }
-
-// Patil sisters
-// filter(student => studentLastName ===..................)
