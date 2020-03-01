@@ -335,15 +335,16 @@ td .logo {
 .quidditch,
 .prefect,
 .expel,
-.inquisitor,
-.blood-box {
+.inquisitor {
   cursor: pointer;
+  font-size: 1.3rem;
 }
 
 tr .quidditch,
 tr .prefect,
 tr .inquisitor,
-tr .blood-box {
+tr .blood-box,
+tr .expel {
   text-align: center;
   padding: 0;
   line-height: 0;

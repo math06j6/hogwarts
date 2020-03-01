@@ -40,6 +40,7 @@ function start() {
   document.querySelector("[data-filter='slytherin']").addEventListener("click", filterSlytherin);
 
   document.querySelector("[data-sort='first']").addEventListener("click", sortFirst);
+  document.querySelector(".hack").addEventListener("click", hackHogwarts);
 
   allStudents = enrolledStudents;
   loadJSON();
@@ -374,34 +375,12 @@ function expelStudent(student) {
 
   expelledStudents.push(student);
 
-  function deleteListItem(event) {
-    if (!event.target.hasAttribute("data-remove")) return;
-    var listItems = app.getData().listItems;
-    var index = event.target.getAttribute("data-remove");
-    if (!confirm("Are you sure you want to delete this item? This action cannot be reversed.")) return;
-    listItems.splice(index, 1);
-    app.setData({
-      listItems: listItems
-    });
-  }
-
   enrolledStudents = allStudents.filter(student => {
     return student.expelled === false;
   });
 
   displayList(enrolledStudents);
-
-  // filterArray(selectedFilter);
-  // displayStudents(sortStudents(sortBy, sortDirection));
 }
-
-// function expelStudent(student) {
-//   if (student.expel) {
-//     student.expel = false;
-//   } else {
-//     student.expel = true;
-//   }
-// }
 
 function selectQuidditchPlayer(student) {
   if (student.quidditch) {
@@ -483,23 +462,30 @@ function changeSettings() {
 function hideSettings() {
   console.log(changeSettings);
   HTML.settings.classList.add("hidden");
-
-  // document.querySelector("#detalje .close-btn").addEventListener("click", skjulDetalje);
-
-  // // Hvis man klikker et vilkårligt sted på mit pop-up card, så lukker man fuldskærmsvisning
-  // document.querySelector("#detalje").addEventListener("click", skjulDetalje);
 }
 
-// function closePopup() {
-//   HTML.settings.classList.add("hidden");
-// }
+function hackHogwarts(news) {
+  document.querySelector(".hack").removeEventListener("click", hackHogwarts);
+  const myself = Object.create(Student);
+  myself.first = "Mathias";
+  myself.middle = "Hacked";
+  myself.last = "Hogwarts";
+  myself.gender = "boy";
+  myself.house = "hufflepuff";
+  myself.fullName = "Mathias Hacked Hogwarts";
+  myself.image = "";
+  myself.gender = "boy";
+  // allStudents.unshift(myself);
+  allStudents.push(myself);
+  displayList(news);
+}
 
 // // hacking
 // function hackTheSystem {
 //   console.log()
 
 //   const myself=  = Object.create(Student);
-//   myself.name = "Mathias";
+//   mySelf.name = "Mathias";
 //   myself.type =
 //   myself.desc = "hackerman"
 
