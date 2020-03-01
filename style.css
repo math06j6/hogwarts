@@ -117,6 +117,17 @@ section {
   /* overflow-x: auto; */
 }
 
+/****** Display ******/
+
+#interface {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+}
+.number_of_students,
+.data-house {
+  color: var(--colorTwo);
+}
 /******v Select Theme ******/
 
 option {
@@ -131,7 +142,6 @@ option {
 select {
   border: 1px solid currentColor;
   background: transparent;
-  font-family: "Cinzel", serif;
   margin: 1rem 0.5rem;
   padding: 0.25rem 0.5rem;
   text-align: center;
@@ -151,6 +161,15 @@ option {
   line-height: 1.6;
 }
 
+.filter {
+  font-family: "Cinzel Decorative", cursive;
+  font-weight: 400;
+}
+
+.filter:hover {
+  background-color: var(--colorTwo);
+}
+
 .search {
   font-family: "Cinzel", serif;
   font-weight: 400;
@@ -161,6 +180,12 @@ option {
   margin: 1rem 0;
   padding: 0.25rem 0.5rem;
   border-radius: 5px;
+  line-height: 1.6;
+}
+
+.search:focus {
+  outline-style: none;
+  border-color: var(--colorTwo);
 }
 
 .search::placeholder {
@@ -170,6 +195,17 @@ option {
 option {
   color: var(--colorTwo);
 }
+
+button:focus,
+button:hover,
+select:hover,
+select:focus {
+  outline-style: none;
+  border-color: var(--baseColor);
+  color: var(--baseColor);
+}
+
+/******v Select Theme ******/
 
 [data-house="Default"] {
   --backgroundColor: #202020;
@@ -203,7 +239,14 @@ option {
 
 /****** Select Theme - End ******/
 
-/***** Table ******/
+/****** Table ******/
+
+.top .wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
 
 .students {
   overflow-x: auto;
@@ -228,6 +271,8 @@ thead {
 
 td,
 th {
+  font-family: "Cinzel", serif;
+  font-weight: 400;
   padding: 0.5rem 0.75rem;
   text-align: left;
   margin: 0;
@@ -239,8 +284,9 @@ th {
   top: 0;
   font-weight: 700;
   background-color: var(--colorTwo);
-
   height: 2.5em;
+  font-family: "Cinzel Decorative", cursive;
+  font-weight: 400;
 }
 
 .house {
@@ -270,7 +316,7 @@ th {
 }
 
 td .house-txt {
-  width: 80px;
+  width: 105px;
 }
 
 td .logo {
@@ -316,18 +362,18 @@ footer {
 
 .footer-wrapper {
   display: flex;
-  margin: 0 2vw;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0 2vw 1rem;
 }
 
 .hack {
   border: none;
   background: transparent;
-
-  padding: 0 0 1rem 0;
+  padding: 0;
   font-size: 1.5rem;
-  margin-left: auto;
   cursor: pointer;
-  margin-left: auto;
+  margin: auto 0;
 }
 
 .settings_btn {
@@ -419,6 +465,8 @@ footer {
 
 #settings h2 {
   margin: 100px 0;
+  font-family: "Cinzel Decorative", cursive;
+  font-weight: 700;
 }
 
 /* __________________ Grid - tidligere ___________________*/

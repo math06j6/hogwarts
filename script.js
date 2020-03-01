@@ -4,8 +4,9 @@
 
 window.addEventListener("DOMContentLoaded", start);
 
-let allStudents = [];
+const allStudents = [];
 const HTML = {};
+let currentList = [];
 
 const Student = {
   first: "",
@@ -14,7 +15,8 @@ const Student = {
   gender: "",
   house: "",
   image: "",
-  inquisitor: false
+  inquisitor: false,
+  expel: false
 };
 
 function start() {
@@ -36,8 +38,30 @@ function start() {
   document.querySelector("[data-filter='ravenclaw']").addEventListener("click", filterRavenclaw);
   document.querySelector("[data-filter='slytherin']").addEventListener("click", filterSlytherin);
 
+  document.querySelector("[data-sort='first']").addEventListener("click", sortFirst);
+
   loadJSON();
 }
+
+function sortFirst() {
+  const sortName = allStudents.sort(compareName);
+  displayList(sortName);
+
+  console.log(sortFirst);
+}
+
+function compareName(a, b) {
+  if (a.first == b.first) {
+    return 1;
+  } else if (a.first > b.first) {
+    return -1;
+  } else {
+    return -1;
+  }
+}
+
+allStudents.sort(compareName);
+console.log(compareName);
 
 function displayAll() {
   const filterAll = allStudents.filter(isAll);
@@ -144,12 +168,15 @@ function prepareObjects(jsonData) {
   displayList();
 }
 
-function displayList() {
+function displayList(students) {
   // clear the list
   document.querySelector("#information tbody").innerHTML = "";
 
   // build a new list
   allStudents.forEach(displayStudent);
+
+  // Display interface data
+  prepareInterfaceData(students);
 
   // Search
   let search = document.querySelector(".search");
@@ -178,6 +205,37 @@ function displayList() {
       }
     });
   });
+}
+
+function prepareInterfaceData() {
+  const gryffindor = allStudents.filter(student => student.house === "Gryffindor" && !student.expel);
+  const hufflepuff = allStudents.filter(student => student.house === "Hufflepuff" && !student.expel);
+  const ravenclaw = allStudents.filter(student => student.house === "Ravenclaw" && !student.expel);
+  const slytherin = allStudents.filter(student => student.house === "Slytherin" && !student.expel);
+  const expel = allStudents.filter(student => student.expel);
+  const registered = allStudents.filter(student => !student.expel);
+  const current = allStudents.filter(student => !student.expel);
+
+  const object = {
+    gryffindor: gryffindor.length,
+    hufflepuff: hufflepuff.length,
+    ravenclaw: ravenclaw.length,
+    slytherin: slytherin.length,
+    expel: expel.length,
+    registered: registered.length,
+    current: current.length
+  };
+  displayInterfaceData(object);
+}
+
+function displayInterfaceData(object) {
+  document.querySelector("#gryffindor").textContent = `${object.gryffindor}`;
+  document.querySelector("#hufflepuff").textContent = `${object.hufflepuff}`;
+  document.querySelector("#ravenclaw").textContent = `${object.ravenclaw}`;
+  document.querySelector("#slytherin").textContent = `${object.slytherin}`;
+  document.querySelector("#registered").textContent = `${object.registered}`;
+  document.querySelector("#expel").textContent = `${object.expel}`;
+  document.querySelector("#current").textContent = `${object.current}`;
 }
 
 function displayStudent(student) {
