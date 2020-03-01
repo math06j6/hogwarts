@@ -4,9 +4,11 @@
 
 window.addEventListener("DOMContentLoaded", start);
 
-const allStudents = [];
+let allStudents = [];
 const HTML = {};
-let currentList = [];
+let enrolledStudents = [];
+let expelledStudents = [];
+let jsonBlood = [];
 
 const Student = {
   first: "",
@@ -15,6 +17,7 @@ const Student = {
   gender: "",
   house: "",
   image: "",
+  blood: "",
   inquisitor: false,
   expel: false
 };
@@ -25,8 +28,6 @@ function start() {
 
   HTML.settings.classList.add("hidden");
   document.querySelector(".settings_btn").addEventListener("click", changeSettings);
-  // HTML.settingsBtn = document.querySelector(".settings_btn");
-  // HTML.settingsBtn.addEventListener("click", changeSettings);
   console.log("changeSettings");
 
   document.querySelector("select#theme").addEventListener("change", selectTheme);
@@ -40,6 +41,7 @@ function start() {
 
   document.querySelector("[data-sort='first']").addEventListener("click", sortFirst);
 
+  allStudents = enrolledStudents;
   loadJSON();
 }
 
@@ -113,14 +115,16 @@ function selectTheme() {
 
 async function loadJSON() {
   const response = await fetch("https://petlatkea.dk/2020/hogwarts/students.json");
-  // const response = await fetch("https://petlatkea.dk/2020/hogwarts/families.json");
+  const jsonFamilies = await fetch("https://petlatkea.dk/2020/hogwarts/families.json");
+
   const jsonData = await response.json();
+  const jsonBlood = await jsonFamilies.json();
 
   // when loaded, prepare data objects
-  prepareObjects(jsonData);
+  prepareObjects(jsonData, jsonBlood);
 }
 
-function prepareObjects(jsonData) {
+function prepareObjects(jsonData, jsonBlood) {
   jsonData.forEach(jsonObject => {
     const student = Object.create(Student);
 
@@ -152,7 +156,7 @@ function prepareObjects(jsonData) {
 
     // student.gender = jsonObject.gender[0].toUpperCase() + jsonObject.gender.substring(1).toLowerCase();
 
-    // Prepare the house data
+    // Prepare House data
     student.house = jsonObject.house;
     student.house = student.house.trim();
     student.house = student.house.toLowerCase();
@@ -163,9 +167,21 @@ function prepareObjects(jsonData) {
     allStudents.push(student);
     console.log(student);
   });
-
+  setBloodStatus(jsonBlood);
   console.log("allStudents", allStudents);
   displayList();
+}
+
+function setBloodStatus(array) {
+  allStudents.forEach(student => {
+    if (array.half.some(family => family === student.last)) {
+      student.blood = "half";
+    } else if (array.pure.some(family => family === student.last)) {
+      student.blood = "pure";
+    } else {
+      student.blood = "muggle";
+    }
+  });
 }
 
 function displayList(students) {
@@ -287,8 +303,26 @@ function displayStudent(student) {
 
   clone.querySelector(".logo").src = "files/logos/" + student.house + ".png";
   clone.querySelector(".logo").alt = student.house + " logo";
+  clone.querySelector(".blood").src = displayBlood(student.blood);
+  clone.querySelector(".blood").alt = "Blood";
 
-  clone.querySelector(".list-row").addEventListener("click", () => {
+  clone.querySelector(".first_name").addEventListener("click", () => {
+    visDetalje(student);
+  });
+
+  clone.querySelector(".middle_name").addEventListener("click", () => {
+    visDetalje(student);
+  });
+
+  clone.querySelector(".nickname").addEventListener("click", () => {
+    visDetalje(student);
+  });
+
+  clone.querySelector(".last_name").addEventListener("click", () => {
+    visDetalje(student);
+  });
+
+  clone.querySelector(".house").addEventListener("click", () => {
     visDetalje(student);
   });
 
@@ -307,6 +341,7 @@ function displayStudent(student) {
     displayList(allStudents);
   });
 
+  //expell student -> click
   clone.querySelector("[data-field=expel]").addEventListener("click", function() {
     expelStudent(student);
     displayList(allStudents);
@@ -315,6 +350,58 @@ function displayStudent(student) {
   // append clone to list
   document.querySelector("#information tbody").appendChild(clone);
 }
+
+function displayBlood(str) {
+  console.log("displayBlood");
+  if (str === "pure") {
+    return `/files/pure.svg`;
+  } else if (str === "half") {
+    return `/files/half.svg`;
+  } else {
+    return `/files/muggle.svg`;
+  }
+}
+
+function expelStudent(student) {
+  console.log("Expelled: " + student.first);
+
+  student.expelled = true;
+  student.prefect = false;
+
+  enrolledStudents = allStudents.filter(student => {
+    return student.expelled === false;
+  });
+
+  expelledStudents.push(student);
+
+  function deleteListItem(event) {
+    if (!event.target.hasAttribute("data-remove")) return;
+    var listItems = app.getData().listItems;
+    var index = event.target.getAttribute("data-remove");
+    if (!confirm("Are you sure you want to delete this item? This action cannot be reversed.")) return;
+    listItems.splice(index, 1);
+    app.setData({
+      listItems: listItems
+    });
+  }
+
+  enrolledStudents = allStudents.filter(student => {
+    return student.expelled === false;
+  });
+
+  displayList(enrolledStudents);
+
+  // filterArray(selectedFilter);
+  // displayStudents(sortStudents(sortBy, sortDirection));
+}
+
+// function expelStudent(student) {
+//   if (student.expel) {
+//     student.expel = false;
+//   } else {
+//     student.expel = true;
+//   }
+// }
 
 function selectQuidditchPlayer(student) {
   if (student.quidditch) {
@@ -340,14 +427,6 @@ function setPrefect(student) {
   }
 }
 
-function expelStudent(student) {
-  if (student.expel) {
-    student.expel = false;
-  } else {
-    student.expel = true;
-  }
-}
-
 function visDetalje(student) {
   console.log(visDetalje);
 
@@ -363,12 +442,13 @@ function visDetalje(student) {
   document.querySelector("#detalje .logo").src = "files/logos/" + student.house + ".png";
   document.querySelector("#detalje .logo").alt = student.house + " logo";
   document.querySelector("#detalje .house").textContent = student.house;
+  document.querySelector("#detalje .blood").src = displayBlood(student.blood);
 
-  if (student.lastName == "Finch-Fletchley") {
+  if (student.last == "Finch-Fletchley") {
     document.querySelector("#detalje .student-img").src = "files/images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
   } else if (student.firstName == "Padma") {
     document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + "padme" + ".png";
-  } else if (student.lastName == "Patil") {
+  } else if (student.last == "Patil") {
     document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + student.firs.toLowerCase() + ".png";
   } else {
     document.querySelector("#detalje .student-img").src = "files/images/" + student.last.toLowerCase() + "_" + student.first.substring(0, 1).toLowerCase() + ".png";
